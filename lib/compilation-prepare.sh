@@ -209,6 +209,9 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/rtl8189es/${rtl8189esver#*:}/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8189es/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/rtl8189es/${rtl8189esver#*:}/Kconfig"
 		cp "${SRC}/cache/sources/rtl8189es/${rtl8189esver#*:}/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8189es/Kconfig"
 
@@ -241,12 +244,50 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/rtl8189fs/${rtl8189fsver#*:}/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8189fs/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/rtl8189fs/${rtl8189fsver#*:}/Kconfig"
 		cp "${SRC}/cache/sources/rtl8189fs/${rtl8189fsver#*:}/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8189fs/Kconfig"
 
 		# Add to section Makefile
 		echo "obj-\$(CONFIG_RTL8189FS) += rtl8189fs/" >> "${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/Makefile"
 		sed -i '/source "drivers\/net\/wireless\/ti\/Kconfig"/a source "drivers\/net\/wireless\/rtl8189fs\/Kconfig"' \
+		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/Kconfig"
+
+	fi
+
+
+
+
+	# Wireless drivers for Realtek 8192EU chipsets
+
+	if linux-version compare "${version}" ge 3.14 && [ "$EXTRAWIFI" == yes ]; then
+
+		# attach to specifics tag or branch
+		local rtl8192euver="branch:realtek-4.4.x"
+
+		display_alert "Adding" "Wireless drivers for Realtek 8192EU chipsets ${rtl8192euver}" "info"
+
+		fetch_from_repo "https://github.com/Mange/rtl8192eu-linux-driver" "rtl8192eu" "${rtl8192euver}" "yes"
+		cd "${SRC}/cache/sources/${LINUXSOURCEDIR}" || exit
+		rm -rf "${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8192eu"
+		mkdir -p "${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8192eu/"
+		cp -R "${SRC}/cache/sources/rtl8192eu/${rtl8192euver#*:}"/{core,hal,include,os_dep,platform} \
+		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8192eu"
+
+		# Makefile
+		cp "${SRC}/cache/sources/rtl8192eu/${rtl8192euver#*:}/Makefile" \
+		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8192eu/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/rtl8192eu/${rtl8192euver#*:}/Kconfig"
+		cp "${SRC}/cache/sources/rtl8192eu/${rtl8192euver#*:}/Kconfig" \
+		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8192eu/Kconfig"
+
+		# Add to section Makefile
+		echo "obj-\$(CONFIG_RTL8192EU) += rtl8192eu/" >> "${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/Makefile"
+		sed -i '/source "drivers\/net\/wireless\/ti\/Kconfig"/a source "drivers\/net\/wireless\/rtl8192eu\/Kconfig"' \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/Kconfig"
 
 	fi
@@ -273,6 +314,8 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/rtl8812au/${rtl8812auver#*:}/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8812au/Makefile"
+
+		# Kconfig
 		cp "${SRC}/cache/sources/rtl8812au/${rtl8812auver#*:}/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8812au/Kconfig"
 
@@ -301,6 +344,9 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/xradio/master/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/xradio/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/xradio/master/Kconfig"
 		cp "${SRC}/cache/sources/xradio/master/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/xradio/Kconfig"
 
@@ -334,6 +380,9 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/rtl8811cu/${rtl8811cuver#*:}/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8811cu/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/rtl8811cu/${rtl8811cuver#*:}/Kconfig"
 		cp "${SRC}/cache/sources/rtl8811cu/${rtl8811cuver#*:}/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8811cu/Kconfig"
 
@@ -374,6 +423,9 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/rtl8188eu/${rtl8188euver#*:}/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8188eu/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/rtl8188eu/${rtl8188euver#*:}/Kconfig"
 		cp "${SRC}/cache/sources/rtl8188eu/${rtl8188euver#*:}/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8188eu/Kconfig"
 
@@ -413,6 +465,9 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/rtl88x2bu/${rtl88x2buver#*:}/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl88x2bu/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/rtl88x2bu/${rtl88x2buver#*:}/Kconfig"
 		cp "${SRC}/cache/sources/rtl88x2bu/${rtl88x2buver#*:}/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl88x2bu/Kconfig"
 
@@ -449,6 +504,9 @@ compilation_prepare()
 		# Makefile
 		cp "${SRC}/cache/sources/rtl8723ds/${rtl8723dsver#*:}/Makefile" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8723ds/Makefile"
+
+		# Kconfig
+		sed -i 's/---help---/help/g' "${SRC}/cache/sources/rtl8723ds/${rtl8723dsver#*:}/Kconfig"
 		cp "${SRC}/cache/sources/rtl8723ds/${rtl8723dsver#*:}/Kconfig" \
 		"${SRC}/cache/sources/${LINUXSOURCEDIR}/drivers/net/wireless/rtl8723ds/Kconfig"
 
